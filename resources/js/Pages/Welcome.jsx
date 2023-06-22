@@ -19,7 +19,6 @@ export default function Welcome({ appVer, appBuild, appBuilder, agendaCount = 0 
                         </div>
                     </div>
 
-
                     <div className="flex justify-start hidden">
                         <h2 className="font-bold dark:text-gray-50 text-4xl lg:text-6xl">Ayo Dolen!</h2>
                     </div>
@@ -128,7 +127,7 @@ export default function Welcome({ appVer, appBuild, appBuilder, agendaCount = 0 
                         </div>
 
                         <div className="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                            TanyaHukum v{appVer} (build {appBuild} by {appBuilder})
+                            Dolen v{appVer} (build {appBuild} by {appBuilder})
                         </div>
                     </div>
                 </div>

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('author_id');
             $table->foreign('author_id')->references('id')->on('users');
+            $table->string('name');
             $table->dateTimeTz('start_date');
             $table->dateTimeTz('end_date');
             $table->boolean('is_visible')->default(true);

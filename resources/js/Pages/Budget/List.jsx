@@ -2,23 +2,23 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { month } from '@/commons';
 
-export default function List({ auth, events }) {
+export default function List({ auth, budgets }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
         >
-            <Head title="Events" />
+            <Head title="Budgets" />
 
             <div className="py-12 bg-slate-900 dark:bg-dots-lighter min-h-screen">
                 <div className="max-w-7xl sm:px-6 lg:px-12">
                     <div className="overflow-hidden shadow-sm sm:rounded-lg flex justify-between items-center">
-                        <div className="p-6 text-6xl font-bold text-white">Events</div>
-                        <a className="px-3 py-2 rounded bg-slate-700 text-white h-fit" href={route("addevent")}>Add event</a>
+                        <div className="p-6 text-6xl font-bold text-white">Budgets</div>
+                        <a className="px-3 py-2 rounded bg-slate-700 text-white h-fit" href={route("addevent")}>Add budget</a>
                     </div>
 
                     <div className="flex flex-col mx-8 gap-5">
                         {
-                            events.map((e, i) => {
+                            budgets.map((e, i) => {
                                 let start = new Date(e.start_date);
                                 let end = new Date(e.end_date);
 
