@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Circle;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,9 +20,17 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        $circles = User::find($request->user()->id)->circles;
+        $circlesinfo = [];
+        foreach ($circles as $c) {
+            array_push($circlesinfo, Circle::find($c->circle_id));
+        }
+
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'userCircles' => $circlesinfo
         ]);
     }
 

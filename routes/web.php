@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BudgetsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventsController;
+use App\Models\Event;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,13 +26,15 @@ Route::get('/', function () {
         return;
     }
 
+    $e = Event::get();
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'appVer' => "0.1.0b",
         'appBuild' => "2306031442001",
-        'appBuilder' => 'Faisal'
+        'appBuilder' => 'Faisal',
+        'eventCount' => count($e)
     ]);
 });
 
@@ -47,8 +51,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/event/{id}', [EventsController::class, 'detail'])->name('eventdetail');
     Route::get('/events/add', [EventsController::class, 'create'])->name('addevent');
     Route::post('/events/add', [EventsController::class, 'store'])->name('storeevent');
+    Route::get('/events/route/add', [EventsController::class, 'createRoute'])->name('addeventroute');
 
-    Route::get('/budgets', [EventsController::class, 'index'])->name('budgets');
+    Route::get('/budgets', [BudgetsController::class, 'index'])->name('budgets');
     Route::get('/budgets/allocate', [EventsController::class, 'index'])->name('allocatebudget');
 });
 

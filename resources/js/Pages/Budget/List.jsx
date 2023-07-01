@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { month } from '@/commons';
 
-export default function List({ auth, budgets }) {
+export default function List({ auth, budgets, total_budget }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -16,19 +16,22 @@ export default function List({ auth, budgets }) {
                         <a className="px-3 py-2 rounded bg-slate-700 text-white h-fit" href={route("addevent")}>Add budget</a>
                     </div>
 
+                    <div className="text-white mx-6 px-4 py-5 bg-indigo-900 rounded-lg">
+                        <span>Total budget</span>
+                        <h1 className="font-bold text-4xl">Rp{total_budget}</h1>
+                    </div>
+
                     <div className="flex flex-col mx-8 gap-5">
                         {
                             budgets.map((e, i) => {
-                                let start = new Date(e.start_date);
-                                let end = new Date(e.end_date);
 
                                 return (
                                     <a key={i} className="rounded-lg bg-white/10 text-gray-100 px-6 py-4 flex-col hover:bg-white/20 transform duration-500" href={"/event/"+e.id}>
-                                        <h2 className="font-bold text-2xl tracking-wider">{e.name}</h2>
+                                        <h2 className="font-bold text-2xl tracking-wider">{e.amount >= 0 ? "Debit" : "Credit"}</h2>
                                         <span className="tracking-tight text-sm">
-                                            {start.getDate()} {month[start.getMonth()]} {start.getFullYear() === end.getFullYear() ? false : start.getFullYear()} - {end.getDate()} {month[end.getMonth()]} {end.getFullYear()}
+
                                         </span>
-                                        <p>{e.routes.length} destination{e.routes.length > 1 ? "s" : false}, {e.participants.length} participant{e.participants.length > 1 ? "s" : false}</p>
+                                        <p>{e.description}</p>
                                         <div>
 
                                         </div>

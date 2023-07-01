@@ -5,7 +5,7 @@ import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
-export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
+export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '', userCircles }) {
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
@@ -14,6 +14,8 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
         handle: user.handle,
         role: user.role
     });
+
+    console.log(user)
 
     const submit = (e) => {
         e.preventDefault();
@@ -52,17 +54,30 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <InputLabel htmlFor="handle" value="Handle" />
                     <span className='font-mono pl-2 py-1 bg-gray-200 rounded mt-1'>
                         {data.handle}
-                        { data.role === 1 ?
+                        { data.role === 2 ?
                             <span className="bg-emerald-500 rounded-r ml-2 px-1 py-1 text-white">
                                 USER
                             </span>
-                        : data.role === 2 ?
+                        : data.role === 3 ?
                             <span className="bg-blue-600 rounded-r ml-2 px-1 py-1 text-white">
                                 ADMIN
                             </span>
                         :false
                         }
                     </span>
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="circle" value="Circles" />
+                    <div className='font-mono py-1  rounded mt-1 flex flex-col'>
+                        {
+                            userCircles.map((e, i) => {
+                                return (
+                                    <p key={i} className={`border rounded px-3 py-1 ${e.handle == "admin" ? "text-blue-800" : false}`}>{e.name}</p>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
 
 

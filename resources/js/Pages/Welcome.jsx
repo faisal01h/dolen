@@ -2,7 +2,7 @@ import UnauthenticatedNavbar from '@/Components/UnauthenticatedNavbar';
 import { Link, Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 
-export default function Welcome({ appVer, appBuild, appBuilder, agendaCount = 0 }) {
+export default function Welcome({ appVer, appBuild, appBuilder, eventCount = 0 }) {
 
     return (
         <>
@@ -15,7 +15,7 @@ export default function Welcome({ appVer, appBuild, appBuilder, agendaCount = 0 
                             <h2 className="font-bold dark:text-gray-50 text-5xl lg:text-6xl">Ayo Dolen!</h2>
                         </div>
                         <div className="flex h-full items-center justify-center lg:justify-start">
-                            <span className="font-mono dark:text-gray-50 text-md lg:text-md">{agendaCount} agenda{agendaCount > 1 ? "s are" : " is"} planned.</span>
+                            <span className="font-mono dark:text-gray-50 text-md lg:text-md">{eventCount} agenda{eventCount > 1 ? "s are" : " is"} planned.</span>
                         </div>
                     </div>
 

@@ -1,8 +1,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { month } from '@/commons';
 
 export default function List({ auth, events }) {
+    console.log(events)
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -19,20 +20,20 @@ export default function List({ auth, events }) {
                     <div className="flex flex-col mx-8 gap-5">
                         {
                             events.map((e, i) => {
-                                let start = new Date(e.start_date);
-                                let end = new Date(e.end_date);
-
+                                let start = new Date(e.event.start_date);
+                                let end = new Date(e.event.end_date);
+                                console.log(e)
                                 return (
-                                    <a key={i} className="rounded-lg bg-white/10 text-gray-100 px-6 py-4 flex-col hover:bg-white/20 transform duration-500" href={"/event/"+e.id}>
-                                        <h2 className="font-bold text-2xl tracking-wider">{e.name}</h2>
+                                    <Link key={i} className="rounded-lg bg-white/10 text-gray-100 px-6 py-4 flex-col hover:bg-white/20 transform duration-500" href={"/event/"+e.event_id}>
+                                        <h2 className="font-bold text-2xl tracking-wider">{e.event.name}</h2>
                                         <span className="tracking-tight text-sm">
                                             {start.getDate()} {month[start.getMonth()]} {start.getFullYear() === end.getFullYear() ? false : start.getFullYear()} - {end.getDate()} {month[end.getMonth()]} {end.getFullYear()}
                                         </span>
-                                        <p>{e.routes.length} destination{e.routes.length > 1 ? "s" : false}, {e.participants.length} participant{e.participants.length > 1 ? "s" : false}</p>
+                                        <p>{e.event.routes.length} destination{e.event.routes.length > 1 ? "s" : false}, {e.participants.length} participant{e.participants.length > 1 ? "s" : false}</p>
                                         <div>
 
                                         </div>
-                                    </a>
+                                    </Link>
                                 )
                             })
                         }
