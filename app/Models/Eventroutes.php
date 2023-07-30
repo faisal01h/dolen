@@ -12,6 +12,8 @@ class Eventroutes extends Model
     protected $fillable = [
         'author_id',
         'event_id',
+        'name',
+        'coordinates',
         'start_date',
         'end_date',
         'coordinates',

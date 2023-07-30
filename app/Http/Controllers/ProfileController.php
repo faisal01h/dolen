@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Circle;
+use App\Models\Participant;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -69,5 +70,21 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function view($handle) {
+        $profile = User::where("handle", $handle)->firstOrFail();
+        $history = Participant::where("author_id", $profile->id)->get();
+        $history = $history->reject(function (Participant $participation) {
+            return $participation->is_participating == 0;
+        });
+        foreach($history as $h) {
+            $h->event;
+        }
+
+        return Inertia::render("Profile/Profile", [
+            "profile" => $profile,
+            "history" => $history
+        ]);
     }
 }

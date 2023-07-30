@@ -24,7 +24,7 @@ return new class extends Migration
             $table->dateTimeTz('end_date');
             $table->string('coordinates');
             $table->string('human_address');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

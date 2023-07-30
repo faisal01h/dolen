@@ -19,8 +19,10 @@ export default function Details({ auth, event, isSiteAdmin }) {
                     <div className="overflow-hidden shadow-sm sm:rounded-lg p-6 flex flex-col gap-2">
                         <div className="text-6xl font-bold text-white">{event.name}</div>
                         {
-                            event.participants.length == 0 || (event.participants.length == 1 && event.participants[0].author_id === auth.user.id) ?
-                                <span className="bg-cyan-800 px-3 py-1 my-3 text-white rounded">Event proposed by <Link href={`/user/${event.author.handle}`} className="hover:bg-white hover:text-slate-900 transition-all duration-300 font-semibold">{event.author.name}</Link> on {month[date.getMonth()]} {date.getDate()}, {date.getFullYear()} {date.getHours()}.{date.getMinutes()}</span>
+                            event.participants.length == 0 || (event.participants.length == 1 && event.author_id === auth.user.id) ?
+                                event.author_id === auth.user.id ?
+                                <span className="bg-cyan-800 px-3 py-1 my-3 text-white rounded">You proposed this event on {month[date.getMonth()]} {date.getDate()}, {date.getFullYear()} {date.getHours()}.{date.getMinutes()}</span>
+                                : <span className="bg-cyan-800 px-3 py-1 my-3 text-white rounded">Event proposed by <Link href={`/user/${event.author.handle}`} className="hover:bg-white hover:text-slate-900 transition-all duration-300 font-semibold">{event.author.name}</Link> on {month[date.getMonth()]} {date.getDate()}, {date.getFullYear()} {date.getHours()}.{date.getMinutes()}</span>
                             : false
                         }
                         {
@@ -40,8 +42,8 @@ export default function Details({ auth, event, isSiteAdmin }) {
                                 event.routes.map((e, i) => {
                                     return (
                                         <li className={`dark:text-gray-200 px-5 flex flex-col w-fit items-start pb-8`} key={i}>
-                                            <div className="dark:bg-slate-800 px-3 py-2 rounded-lg">
-                                                <h3 className="font-semibold">{e.name}</h3>
+                                            <div className="dark:bg-slate-800 px-3 py-2 rounded-lg flex flex-col">
+                                                <a href={`https://www.google.com/maps/place/${e.coordinates}/@${e.coordinates},50z`} className="font-semibold" target='_blank'>{e.name}</a>
                                                 <span className="font-thin text-xs">{e.start_date}</span>
                                             </div>
                                         </li>
@@ -71,15 +73,24 @@ export default function Details({ auth, event, isSiteAdmin }) {
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 bg-gradient-to-r from-blue-700 to-pink-700 px-8 py-4 rounded-lg mb-5 min-h-[200px] justify-center">
+                        <h2 className="text-white font-bold text-4xl">Heads Up!</h2>
+                        <h3 className="text-white font-bold text-xl"><i className="animate-pulse transition-all font-mono">Budgets</i> feature is coming soon!</h3>
+                        <p className='text-white '>Don't strand yourself. Plan and manage your trip budgets easily with the budget menu.</p>
+                    </div>
+
+                    {/* <div className="flex flex-col gap-2">
                         <h2 className="px-6 text-2xl font-bold text-white">Budgets</h2>
                         <div>
                             <h3 className="font-semibold text-4xl text-white mx-8">Rp10.000</h3>
                         </div>
                         <div className="mx-8 text-sm font-semibold">
-                            <Link href='#' className="bg-slate-700 hover:bg-slate-800 rounded-l px-3 py-1 text-md text-white">Add budget</Link>
-                            <Link href='#' className="bg-indigo-800 hover:bg-indigo-900 rounded-r px-3 py-1 text-md text-white">View details</Link>
+                            <Link href="#" className="bg-slate-700 hover:bg-slate-800 rounded-l px-3 py-1 text-md text-white">Add budget</Link>
+                            <Link href={route("budgets")+"?event="+event.id} className="bg-indigo-800 hover:bg-indigo-900 rounded-r px-3 py-1 text-md text-white">View details</Link>
                         </div>
+                    </div> */}
+                    <div className="mx-6 mt-8 text-white text-xs">
+                        <p>Event created by {event.author.name}</p>
                     </div>
                 </div>
             </div>

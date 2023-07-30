@@ -46,15 +46,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/user/{handle}', [ProfileController::class, 'view'])->name('profile.view');
 
     Route::get('/events', [EventsController::class, 'index'])->name('events');
     Route::get('/event/{id}', [EventsController::class, 'detail'])->name('eventdetail');
     Route::get('/events/add', [EventsController::class, 'create'])->name('addevent');
     Route::post('/events/add', [EventsController::class, 'store'])->name('storeevent');
     Route::get('/events/route/add', [EventsController::class, 'createRoute'])->name('addeventroute');
+    Route::post('/events/route/add', [EventsController::class, 'storeRoute'])->name('storeeventroute');
 
     Route::get('/budgets', [BudgetsController::class, 'index'])->name('budgets');
-    Route::get('/budgets/allocate', [EventsController::class, 'index'])->name('allocatebudget');
+    Route::get('/budgets/allocate', [EventsController::class, 'index'])->name('budgets.allocate');
 });
 
 require __DIR__.'/auth.php';

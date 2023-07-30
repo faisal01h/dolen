@@ -15,18 +15,26 @@ class BudgetsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $budgets = Budget::get();
+        $request->validate([
+            "event" => "required|integer"
+        ]);
+
+        $event = Event::findOrFail($request->event);
+
+        $budgets = Budget::where("event_id", $event->id)->get();
         $totalBudgets = 0;
         for($i = 0; $i < count($budgets); ++$i) {
+            $budgets[$i]->user;
             $totalBudgets += $budgets[$i]->amount;
         }
 
         return Inertia::render("Budget/List", [
             "budgets" => $budgets,
-            "total_budget" =>$totalBudgets
+            "total_budget" =>$totalBudgets,
+            "event" => $event
         ]);
     }
 
